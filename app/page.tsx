@@ -69,7 +69,7 @@ export default function Home() {
               Financeiro
             </h1>
             <p className="text-blue-300 text-lg font-medium">
-              {isLogin ? 'Bem-vindo de volta!' : 'Crie sua conta'}
+              {isLogin ? 'Bem-vindo!' : 'Crie sua conta'}
             </p>
           </div>
 
@@ -153,7 +153,7 @@ export default function Home() {
           </div>
 
           <p className="text-center text-blue-400/60 text-sm mt-8 animate-fade-in-up delay-300">
-            Suas finanças seguras e kontroladas
+            Suas finanças seguras e controladas
           </p>
         </div>
       </div>
