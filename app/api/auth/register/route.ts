@@ -7,7 +7,17 @@ export const dynamic = 'force-dynamic'
 export async function POST(request: NextRequest) {
   const prisma = await getPrisma()
   try {
-    const { name, email, password } = await request.json()
+    let body
+    try {
+      body = await request.json()
+    } catch {
+      return NextResponse.json(
+        { error: 'Corpo da requisição inválido' },
+        { status: 400 }
+      )
+    }
+
+    const { name, email, password } = body || {}
 
     if (!name || !email || !password) {
       return NextResponse.json(
@@ -75,7 +85,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Erro no registro:', error)
     return NextResponse.json(
-      { error: 'Erro ao criar usuário' },
+      { error: 'Erro ao criar usuário', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }

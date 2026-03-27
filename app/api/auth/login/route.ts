@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Erro no login:', error)
     return NextResponse.json(
-      { error: 'Erro ao fazer login' },
+      { error: 'Erro ao fazer login', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }
