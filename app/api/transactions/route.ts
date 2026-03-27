@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import prisma from '@/lib/prisma'
+import { getPrisma } from '@/lib/prisma'
 import { getUserFromToken } from '@/lib/auth'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {
+  const prisma = await getPrisma()
   try {
     const token = request.headers.get('authorization')?.replace('Bearer ', '')
     
@@ -61,6 +62,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  const prisma = await getPrisma()
   try {
     const token = request.headers.get('authorization')?.replace('Bearer ', '')
     
@@ -123,6 +125,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PUT(request: NextRequest) {
+  const prisma = await getPrisma()
   try {
     const token = request.headers.get('authorization')?.replace('Bearer ', '')
     
@@ -182,6 +185,7 @@ export async function PUT(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
+  const prisma = await getPrisma()
   try {
     const token = request.headers.get('authorization')?.replace('Bearer ', '')
     

@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import prisma from './prisma'
+import { getPrisma } from './prisma'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'default-secret'
 
@@ -28,6 +28,7 @@ export async function getUserFromToken(token: string) {
   const payload = verifyToken(token)
   if (!payload) return null
   
+  const prisma = await getPrisma()
   const user = await prisma.user.findUnique({
     where: { id: payload.userId },
     select: { id: true, name: true, email: true }
