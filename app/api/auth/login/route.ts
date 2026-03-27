@@ -7,7 +7,17 @@ export const dynamic = 'force-dynamic'
 export async function POST(request: NextRequest) {
   const prisma = await getPrisma()
   try {
-    const { email, password } = await request.json()
+    let body
+    try {
+      body = await request.json()
+    } catch {
+      return NextResponse.json(
+        { error: 'Corpo da requisição inválido' },
+        { status: 400 }
+      )
+    }
+
+    const { email, password } = body || {}
 
     if (!email || !password) {
       return NextResponse.json(
