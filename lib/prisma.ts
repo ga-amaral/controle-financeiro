@@ -5,22 +5,14 @@ const globalForPrisma = globalThis as unknown as {
 }
 
 export async function getPrisma() {
-  console.log('getPrisma called, DATABASE_URL:', process.env.DATABASE_URL ? 'set' : 'NOT SET')
-  
   if (globalForPrisma.prisma) {
-    console.log('Returning existing prisma client')
     return globalForPrisma.prisma
   }
   
   if (!process.env.DATABASE_URL) {
-    const error = new Error('DATABASE_URL not defined')
-    console.error('DATABASE_URL missing!')
-    throw error
+    throw new Error('DATABASE_URL not defined')
   }
   
-  console.log('Creating new PrismaClient')
-  globalForPrisma.prisma = new PrismaClient({
-    log: ['error', 'warn', 'query'],
-  })
+  globalForPrisma.prisma = new PrismaClient()
   return globalForPrisma.prisma
 }
